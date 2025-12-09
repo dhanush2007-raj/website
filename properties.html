@@ -1,0 +1,975 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#ffffff">
+<title>Dhanush Properties | Luxury Living</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    :root {
+        --bg-body: #f4f6f8;
+        --bg-card: #ffffff;
+        --text-main: #0a0a0a;
+        --text-light: #525252;
+        --accent: #d00000;
+        --radius-xl: 24px;
+        --radius-lg: 16px;
+        --radius-md: 12px;
+        --radius-pill: 100px;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+        --shadow-lg: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
+        --grid-line: rgba(0, 0, 0, 0.02);
+    }
+
+    body.dark {
+        --bg-body: #0a0a0a;
+        --bg-card: #161616;
+        --text-main: #ffffff;
+        --text-light: #a0a0a0;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+        --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        --grid-line: rgba(255, 255, 255, 0.03);
+    }
+
+    * {
+        box-sizing: border-box;
+        outline: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    html.lenis { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto; }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-body);
+        color: var(--text-main);
+        overflow-x: hidden;
+        transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s ease;
+        position: relative;
+    }
+
+    .bg-grid {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -10;
+        pointer-events: none;
+        background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+        background-size: 20px 20px;
+        transform: skewX(-20deg) scale(1.5);
+        transition: background-image 0.6s ease;
+    }
+
+    .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #000;
+        z-index: 10001;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        overflow: hidden;
+    }
+
+    .loader-text {
+        font-size: 12vw;
+        font-weight: 900;
+        letter-spacing: -5px;
+        display: flex;
+    }
+
+    .loader-text span {
+        display: inline-block;
+        transform: translateY(100%);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        body { cursor: none; }
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.3s, height 0.3s;
+        }
+        .cursor-dot.active { width: 50px; height: 50px; }
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 30px 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        color: var(--text-main);
+    }
+
+    header.scrolled {
+        top: 20px;
+        left: 5%;
+        width: 90%;
+        padding: 15px 40px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: var(--radius-pill);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(128, 128, 128, 0.1);
+    }
+
+    body.dark header.scrolled {
+        background: rgba(30, 30, 30, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo-area {
+        font-weight: 900;
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .logo-area img {
+        width: auto;
+        height: 45px;
+        object-fit: contain;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 40px;
+    }
+
+    .nav-item {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        position: relative;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .nav-item::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .nav-item:hover::after { width: 100%; }
+
+    .btn-pill {
+        padding: 14px 35px;
+        border-radius: var(--radius-pill);
+        background: var(--text-main);
+        color: var(--bg-body);
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .btn-pill:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(128, 128, 128, 0.1);
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        cursor: pointer;
+        border: none;
+    }
+
+    .btn-icon:hover {
+        background: var(--text-main);
+        color: var(--bg-body);
+    }
+
+    .mobile-toggle {
+        display: none;
+        font-size: 24px;
+        color: var(--text-main);
+        background: none;
+        border: none;
+        z-index: 102;
+        cursor: pointer;
+    }
+
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--bg-body);
+        z-index: 101;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transform: translateY(-100%);
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .mobile-menu.active { transform: translateY(0); }
+
+    .mobile-link {
+        font-size: 28px;
+        font-weight: 800;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--text-main);
+    }
+
+    .hero-section {
+        padding: 220px 60px 100px 60px;
+        min-height: 85vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .hero-title {
+        font-size: 7.5vw;
+        line-height: 0.9;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -0.04em;
+        margin: 0;
+        color: var(--text-main);
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-title .outline {
+        color: transparent;
+        -webkit-text-stroke: 1px var(--text-main);
+        opacity: 0.3;
+    }
+
+    .project-section { padding: 0 60px 120px 60px; }
+
+    .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 40px;
+    }
+
+    .project-card {
+        border-radius: var(--radius-xl);
+        background: var(--bg-card);
+        padding: 24px;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        opacity: 0;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: var(--shadow-sm);
+    }
+
+    body.dark .project-card { border: 1px solid rgba(255, 255, 255, 0.05); }
+
+    .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .card-img-container {
+        width: 100%;
+        height: 420px;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .project-card img {
+        width: 100%;
+        height: 115%;
+        object-fit: cover;
+        transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .project-card:hover img { transform: scale(1.05); }
+
+    .project-info {
+        padding-top: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .project-info h2 {
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: -0.5px;
+    }
+
+    .project-info p {
+        font-size: 13px;
+        color: var(--text-light);
+        margin-top: 8px;
+        font-weight: 500;
+    }
+
+    .project-info h4 {
+        margin: 6px 0 0 0;
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .login-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(20px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s;
+        padding: 20px;
+    }
+
+    .login-modal.show {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .login-container {
+        background: var(--bg-card);
+        padding: 50px;
+        border-radius: var(--radius-xl);
+        width: 480px;
+        max-width: 100%;
+        box-shadow: var(--shadow-lg);
+        position: relative;
+        transform: scale(0.95);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        border: 1px solid rgba(128, 128, 128, 0.1);
+    }
+
+    .login-modal.show .login-container { transform: scale(1); }
+
+    input, select {
+        width: 100%;
+        padding: 18px 24px;
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(128, 128, 128, 0.2);
+        background: var(--bg-body);
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-main);
+        margin-bottom: 16px;
+        transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus { border-color: var(--text-main); }
+
+    select option {
+        background-color: var(--bg-card);
+        color: var(--text-main);
+    }
+
+    .filter-bar {
+        background: var(--bg-card);
+        padding: 15px 25px;
+        margin-bottom: 80px;
+        border-radius: var(--radius-pill);
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        border: 1px solid rgba(128, 128, 128, 0.1);
+        box-shadow: var(--shadow-sm);
+        flex-wrap: wrap;
+    }
+
+    .filter-bar input, .filter-bar select {
+        margin-bottom: 0;
+        border: none;
+        background: transparent;
+        padding: 12px;
+    }
+
+    .filter-bar input:focus {
+        border-bottom: 1px solid var(--text-main);
+        border-radius: 0;
+    }
+    
+    .filter-separator {
+        width: 1px;
+        height: 30px;
+        background: rgba(128,128,128,0.2);
+    }
+
+    .footer {
+        background: #050505;
+        color: #888;
+        padding: 120px 60px;
+        border-top-left-radius: 40px;
+        border-top-right-radius: 40px;
+        text-align: center;
+        margin-top: 60px;
+    }
+
+    .footer a {
+        color: #888;
+        text-decoration: none;
+        margin: 0 20px;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 2px;
+        font-weight: 600;
+    }
+
+    .footer a:hover { color: white; }
+
+    .profile-dropdown {
+        position: absolute;
+        top: 120%;
+        right: 0;
+        background: var(--bg-card);
+        padding: 25px;
+        border-radius: var(--radius-lg);
+        width: 320px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid rgba(128, 128, 128, 0.1);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10px);
+        transition: all 0.3s;
+        z-index: 200;
+    }
+
+    .profile-dropdown.show {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+        header { padding: 20px 25px; }
+        header.scrolled { top: 0; left: 0; width: 100%; border-radius: 0; padding: 15px 25px; }
+        .nav-links { display: none; }
+        .mobile-toggle { display: block; }
+        .logo-area { font-size: 18px; }
+        .hero-section { padding: 160px 25px 60px 25px; min-height: 80vh; }
+        .hero-title { font-size: 13vw; }
+        .filter-bar { flex-direction: column; align-items: stretch; gap: 15px; border-radius: var(--radius-lg); padding: 20px; }
+        .filter-separator { display: none; }
+        .filter-bar input { border-bottom: 1px solid rgba(128,128,128,0.1); padding-bottom: 15px; width: 100%; }
+        .project-section { padding: 0 25px 120px 25px; }
+        .project-grid { grid-template-columns: 1fr; gap: 30px; }
+        .card-img-container { height: 320px; }
+        .login-container { padding: 30px; }
+        .profile-dropdown { position: fixed; top: 70px; right: 5%; width: 90%; }
+        .footer { padding: 80px 25px; }
+        .footer div { display: flex; flex-direction: column; gap: 20px; }
+    }
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="preloader">
+    <div class="loader-text">
+        <span>D</span><span>H</span><span>A</span><span>N</span><span>U</span><span>S</span><span>H</span>
+    </div>
+</div>
+
+<div class="cursor-dot"></div>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="newhome.html" class="mobile-link" onclick="toggleMobileMenu()">Home</a>
+    <a href="properties.html" class="mobile-link" onclick="toggleMobileMenu()">Projects</a>
+    <a href="newcontactus.html" class="mobile-link" onclick="toggleMobileMenu()">Contact</a>
+    <button onclick="toggleMobileMenu()" style="position: absolute; bottom: 50px; background: transparent; border: 1px solid var(--text-main); width: 50px; height: 50px; border-radius: 50%; color: var(--text-main); font-size: 20px;"><i class="fa-solid fa-times"></i></button>
+</div>
+
+<div class="login-modal" id="loginModal">
+    <div class="login-container">
+        <button onclick="closeLoginModal()"
+            style="position: absolute; top: 30px; right: 30px; background: none; font-size: 24px; color: var(--text-main); border: none; cursor: pointer;">&times;</button>
+        <h2 style="font-size: 24px; font-weight: 800; margin: 0 0 10px 0; text-transform: uppercase;">Welcome Back</h2>
+        <p style="color: var(--text-light); margin-bottom: 40px; font-size: 14px;">Sign in to manage your property portfolio.</p>
+
+        <form onsubmit="handleLogin(event)">
+            <input type="email" id="email" placeholder="Email Address" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" class="btn-pill magnet-btn" style="width: 100%; margin-top: 10px;">Access Account</button>
+        </form>
+    </div>
+</div>
+
+<header>
+    <div class="logo-area magnet-btn">
+        <img src="logo.png" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span>Dhanush</span>
+    </div>
+
+    <div class="nav-links">
+        <a href="newhome.html" class="nav-item magnet-btn">Home</a>
+        <a href="properties.html" class="nav-item magnet-btn">Projects</a>
+        <a href="newcontactus.html" class="nav-item magnet-btn">Contact Us</a>
+    </div>
+
+    <div style="display: flex; gap: 15px; align-items: center;">
+        <button id="theme-toggle" class="btn-icon magnet-btn" title="Toggle Theme"><i class="fa-solid fa-moon"></i></button>
+        <div style="position: relative;">
+            <button onclick="toggleProfile()" class="btn-icon magnet-btn" title="User Profile"><i class="fa-solid fa-user"></i></button>
+
+            <div class="profile-dropdown" id="profileDropdown">
+                <div id="guestView">
+                    <h4 style="margin: 0;">Guest User</h4>
+                    <p style="font-size: 13px; color: var(--text-light); margin-top: 5px;">Login to save properties to your list.</p>
+                    <button onclick="openLoginModal()" class="btn-pill" style="width: 100%; margin-top: 20px;">Login</button>
+                </div>
+                <div id="userView" style="display: none;">
+                    <h4 id="userNameDisplay" style="margin: 0;">User</h4>
+                    <p id="userEmailDisplay" style="font-size: 13px; color: var(--text-light); margin-top: 5px; overflow: hidden; text-overflow: ellipsis;"></p>
+                    <div style="height: 1px; background: rgba(128,128,128,0.1); margin: 20px 0;"></div>
+                    <p style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light);">Saved Properties:</p>
+                    <div id="interestsList" style="font-size: 13px; margin-bottom: 25px; margin-top: 10px; color: var(--text-main);">None</div>
+                    <button onclick="logout()" class="btn-pill" style="width: 100%; background: var(--accent);">Logout</button>
+                </div>
+            </div>
+        </div>
+        <button class="mobile-toggle" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+</header>
+
+<section class="hero-section">
+    <h1 class="hero-title">
+        Dhanush <br>
+        <span class="outline">Properties</span>
+    </h1>
+    <div style="margin-top: 60px;">
+        <button class="btn-pill magnet-btn" onclick="scrollToProjects()">Explore Collections</button>
+    </div>
+</section>
+
+<div style="padding: 0 60px;" class="filter-wrapper">
+    <div class="filter-bar">
+        <div style="display: flex; align-items: center; flex-grow: 1;">
+            <i class="fa-solid fa-magnifying-glass" style="color: var(--text-light); padding-left: 10px; padding-right: 10px;"></i>
+            <input type="text" id="searchInput" placeholder="Search by location or project..." style="margin: 0; width: 100%;">
+        </div>
+        <div class="filter-separator"></div>
+        <select id="cityFilter" style="margin: 0; width: auto; min-width: 140px; border: none;">
+            <option value="all">All Cities</option>
+            <option value="bengaluru">Bengaluru</option>
+            <option value="hassan">Hassan</option>
+        </select>
+        <div class="filter-separator"></div>
+        <select id="propertyFilter" style="margin: 0; width: auto; min-width: 160px; border: none;">
+            <option value="all">All Types</option>
+            <option value="villas">Villas</option>
+            <option value="apartment">Apartments</option>
+            <option value="penthouse">Penthouses</option>
+            <option value="duplex">Duplex</option>
+            <option value="fully serviced">Fully Serviced</option>
+            <option value="town house">Town House</option>
+        </select>
+        <button class="btn-pill magnet-btn" id="filterBtn">Filter Results</button>
+    </div>
+</div>
+
+<section class="project-section" id="projects">
+    <div class="project-grid">
+        <div class="project-card" data-type="villas" data-city="bengaluru">
+            <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&fit=crop" alt="Villas">
+            </div>
+            <div class="project-info">
+                <div>
+                    <h2>Luxury Villas</h2>
+                    <p><i class="fa-solid fa-location-dot"></i> Bengaluru (1-4 BHK)</p>
+                    <h4>₹ 1,89,800</h4>
+                </div>
+                <button class="btn-icon magnet-btn" onclick="addInterest('Luxury Villas', this)">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="project-card" data-type="duplex" data-city="bengaluru">
+            <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&fit=crop" alt="Duplex">
+            </div>
+            <div class="project-info">
+                <div>
+                    <h2>Modern Duplex</h2>
+                    <p><i class="fa-solid fa-location-dot"></i> Bengaluru (3000 sq.ft)</p>
+                    <h4>₹ 78,000</h4>
+                </div>
+                <button class="btn-icon magnet-btn" onclick="addInterest('Modern Duplex House', this)">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="project-card" data-type="fully serviced" data-city="hassan">
+            <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&fit=crop" alt="Community">
+            </div>
+            <div class="project-info">
+                <div>
+                    <h2>Modern House</h2>
+                    <p><i class="fa-solid fa-location-dot"></i> Hassan (1500 sq.ft)</p>
+                    <h4>₹ 1,50,000</h4>
+                </div>
+                <button class="btn-icon magnet-btn" onclick="addInterest('Modern House', this)">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="project-card" data-type="apartment" data-city="bengaluru">
+            <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&fit=crop" alt="Apartment">
+            </div>
+            <div class="project-info">
+                <div>
+                    <h2>Apartment</h2>
+                    <p><i class="fa-solid fa-location-dot"></i> Bengaluru (Ready 2026)</p>
+                    <h4>₹ 1,50,000</h4>
+                </div>
+                <button class="btn-icon magnet-btn" onclick="addInterest('Apartment', this)">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="project-card" data-type="apartment" data-city="bengaluru">
+            <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&fit=crop" alt="Apartments">
+            </div>
+            <div class="project-info">
+                <div>
+                    <h2>Modern Apartments</h2>
+                    <p><i class="fa-solid fa-location-dot"></i> Bengaluru (Ready 2028)</p>
+                </div>
+                <button class="btn-icon magnet-btn" onclick="addInterest('Modern Apartments', this)">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="project-card" data-type="penthouse" data-city="bengaluru">
+            <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&fit=crop" alt="Penthouse">
+            </div>
+            <div class="project-info">
+                <div>
+                    <h2>Penthouse</h2>
+                    <p><i class="fa-solid fa-location-dot"></i> Bengaluru (5% Down)</p>
+                    <h4>₹ 1,50,000</h4>
+                </div>
+                <button class="btn-icon magnet-btn" onclick="addInterest('Penthouse', this)">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="project-card" data-type="town house" data-city="hassan">
+            <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&fit=crop" alt="Townhouse">
+            </div>
+            <div class="project-info">
+                <div>
+                    <h2>Townhouse</h2>
+                    <p><i class="fa-solid fa-location-dot"></i> Hassan</p>
+                    <h4>₹ 1,50,000</h4>
+                </div>
+                <button class="btn-icon magnet-btn" onclick="addInterest('Townhouse', this)">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="project-card" data-type="penthouse" data-city="bengaluru">
+            <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&fit=crop" alt="Penthouse">
+            </div>
+            <div class="project-info">
+                <div>
+                    <h2>Luxury Penthouse</h2>
+                    <p><i class="fa-solid fa-location-dot"></i> Bengaluru</p>
+                    <h4>₹ 1,50,000</h4>
+                </div>
+                <button class="btn-icon magnet-btn" onclick="addInterest('Luxury Penthouse', this)">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <h2 style="color: white; font-size: 4rem; text-transform: uppercase; margin-bottom: 20px;">Dhanush Properties</h2>
+    <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 30px;">
+        <a href="newhome.html">Home</a>
+        <a href="properties.html">Properties</a>
+        <a href="newcontactus.html">Contact Us</a>
+    </div>
+    <p style="font-size: 12px; margin-top: 40px; opacity: 0.5;">&copy; 2025 Dhanush Properties. All Rights Reserved.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+<script>
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smooth: true,
+        touchMultiplier: 2
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    const cursor = document.querySelector('.cursor-dot');
+    const isDesktop = window.matchMedia("(pointer: fine)").matches;
+
+    if (isDesktop) {
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.1,
+                ease: "power2.out"
+            });
+        });
+
+        const interactiveEls = document.querySelectorAll('a, button, .project-card, input, select');
+        interactiveEls.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+
+        const magnets = document.querySelectorAll('.magnet-btn');
+        magnets.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: "power2.out" });
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+            });
+        });
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const tl = gsap.timeline();
+    tl.to(".loader-text span", { y: 0, stagger: 0.05, duration: 0.8, ease: "power4.out" })
+        .to(".loader-text span", { y: "-100%", stagger: 0.05, duration: 0.5, delay: 0.5 })
+        .to(".preloader", { yPercent: -100, duration: 0.8, ease: "power2.inOut" })
+        .from(".hero-title", { y: 100, opacity: 0, duration: 1.5, ease: "power3.out" }, "-=0.5");
+
+    document.querySelectorAll('.project-card').forEach(card => {
+        gsap.fromTo(card, { y: 100, opacity: 0 }, {
+            scrollTrigger: { trigger: card, start: "top 90%" },
+            y: 0, opacity: 1, duration: 1, ease: "power3.out"
+        });
+        
+        if(isDesktop) {
+            gsap.to(card.querySelector('img'), {
+                scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: true },
+                y: "10%", ease: "none"
+            });
+        }
+    });
+
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+    });
+
+    const themeBtn = document.getElementById('theme-toggle');
+    const updateThemeIcon = (isDark) => {
+        themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+    };
+
+    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+    if (prefersDarkScheme.matches) {
+        document.body.classList.add("dark");
+        updateThemeIcon(true);
+    } else {
+        document.body.classList.remove("dark");
+        updateThemeIcon(false);
+    }
+
+    prefersDarkScheme.addEventListener("change", (e) => {
+        if (e.matches) {
+            document.body.classList.add("dark");
+            updateThemeIcon(true);
+        } else {
+            document.body.classList.remove("dark");
+            updateThemeIcon(false);
+        }
+    });
+
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        const isDark = document.body.classList.contains('dark');
+        updateThemeIcon(isDark);
+    });
+
+    function filterProjects() {
+        const term = document.getElementById('searchInput').value.toLowerCase();
+        const type = document.getElementById('propertyFilter').value.toLowerCase();
+        const city = document.getElementById('cityFilter').value.toLowerCase();
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            const cType = card.dataset.type.toLowerCase();
+            const cCity = card.dataset.city ? card.dataset.city.toLowerCase() : '';
+            const title = card.querySelector('h2').innerText.toLowerCase();
+            const locationText = card.querySelector('p').innerText.toLowerCase();
+
+            const matchSearch = title.includes(term) || locationText.includes(term);
+            const matchType = type === 'all' || cType === type;
+            const matchCity = city === 'all' || cCity === city || locationText.includes(city);
+
+            if (matchSearch && matchType && matchCity) {
+                card.style.display = 'block';
+                gsap.to(card, { opacity: 1, scale: 1, duration: 0.3 });
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    document.getElementById('filterBtn').addEventListener('click', filterProjects);
+    document.getElementById('propertyFilter').addEventListener('change', filterProjects);
+    document.getElementById('cityFilter').addEventListener('change', filterProjects);
+    document.getElementById('searchInput').addEventListener('keyup', filterProjects);
+
+    function scrollToProjects() {
+        lenis.scrollTo('#projects');
+    }
+
+    let currentUser = null;
+    let interests = [];
+
+    function openLoginModal() {
+        document.getElementById('loginModal').classList.add('show');
+        document.getElementById('profileDropdown').classList.remove('show');
+    }
+    function closeLoginModal() { document.getElementById('loginModal').classList.remove('show'); }
+
+    function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        currentUser = { name: email.split('@')[0], email: email };
+        closeLoginModal();
+        updateProfileUI();
+    }
+
+    function logout() {
+        currentUser = null;
+        interests = [];
+        updateProfileUI();
+        if(document.getElementById('profileDropdown').classList.contains('show')) {
+            toggleProfile();
+        }
+    }
+
+    function toggleProfile() {
+        document.getElementById('profileDropdown').classList.toggle('show');
+    }
+
+    function updateProfileUI() {
+        if (currentUser) {
+            document.getElementById('guestView').style.display = 'none';
+            document.getElementById('userView').style.display = 'block';
+            document.getElementById('userNameDisplay').innerText = currentUser.name;
+            document.getElementById('userEmailDisplay').innerText = currentUser.email;
+            renderInterests();
+        } else {
+            document.getElementById('guestView').style.display = 'block';
+            document.getElementById('userView').style.display = 'none';
+        }
+    }
+
+    function addInterest(name, btn) {
+        if (!currentUser) { openLoginModal(); return; }
+        if (!interests.includes(name)) {
+            interests.push(name);
+            btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+            renderInterests();
+        }
+    }
+
+    function renderInterests() {
+        const list = document.getElementById('interestsList');
+        if (interests.length === 0) list.innerText = "No properties saved.";
+        else list.innerHTML = interests.map(i => `<div style="padding:4px 0; border-bottom:1px solid rgba(128,128,128,0.1);">${i}</div>`).join('');
+    }
+
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('active');
+    }
+
+    document.addEventListener('keydown', (e) => { if (e.key === "Escape") closeLoginModal(); });
+</script>
+</body>
+</html>

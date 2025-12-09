@@ -1,0 +1,1246 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="theme-color" content="#ffffff">
+        <title>Home | Dhanush Properties</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+        --bg-body: #f7f9fc;
+        --bg-card: #ffffff;
+        --bg-input: #f0f2f5;
+        --text-main: #111111;
+        --text-muted: #666666;
+        --border-color: rgba(0, 0, 0, 0.08);
+        --accent-red: #d00000;
+        --accent-hover: #b00000;
+        --btn-text: #ffffff;
+        --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.1);
+        --radius-pill: 100px;
+        --radius-card: 24px;
+        --grid-color: rgba(0, 0, 0, 0.04);
+    }
+
+    body.dark {
+        --bg-body: #050505;
+        --bg-card: #141414;
+        --bg-input: #1f1f1f;
+        --text-main: #ffffff;
+        --text-muted: #888888;
+        --border-color: rgba(255, 255, 255, 0.08);
+        --accent-red: #d00000;
+        --accent-hover: #ff1a1a;
+        --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
+        --grid-color: rgba(255, 255, 255, 0.05);
+    }
+
+    * {
+        box-sizing: border-box;
+        outline: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    html.lenis {
+        height: auto;
+    }
+
+    .lenis.lenis-smooth {
+        scroll-behavior: auto;
+    }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-body);
+        color: var(--text-main);
+        overflow-x: hidden;
+        transition: background-color 0.5s ease, color 0.5s ease;
+        background-image:
+            linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+            linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+        background-size: 50px 50px;
+        background-attachment: fixed;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        body {
+            cursor: none;
+        }
+
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .cursor-dot.active {
+            width: 50px;
+            height: 50px;
+        }
+    }
+
+    .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #000;
+        z-index: 10001;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        overflow: hidden;
+    }
+
+    .loader-text {
+        font-size: 10vw;
+        font-weight: 900;
+        letter-spacing: -2px;
+        display: flex;
+    }
+
+    .loader-text span {
+        display: inline-block;
+        transform: translateY(100%);
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 30px 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        color: var(--text-main);
+    }
+
+    header.scrolled {
+        top: 20px;
+        left: 5%;
+        width: 90%;
+        padding: 15px 40px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: var(--radius-pill);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-color);
+    }
+
+    body.dark header.scrolled {
+        background: rgba(20, 20, 20, 0.8);
+    }
+
+    .logo-area {
+        font-weight: 800;
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .logo-area img {
+        height: 45px;
+        width: auto;
+        border-radius: 0;
+        border: none;
+        object-fit: contain;
+    }
+
+    .right-actions {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    button {
+        cursor: pointer;
+        border: none;
+        outline: none;
+    }
+
+    .btn-pill {
+        padding: 12px 30px;
+        border-radius: var(--radius-pill);
+        background: var(--text-main);
+        color: var(--btn-text);
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s;
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        text-decoration: none;
+    }
+
+    .btn-search {
+        background-color: var(--accent-red) !important;
+        color: white !important;
+    }
+
+    .btn-search:hover {
+        background-color: var(--accent-hover) !important;
+    }
+
+    .btn-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: var(--bg-input);
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        text-decoration: none;
+    }
+
+    .btn-icon:hover {
+        background: var(--text-main);
+        color: var(--bg-card);
+    }
+
+    .mobile-toggle {
+        display: none;
+        font-size: 24px;
+        color: var(--text-main);
+        background: none;
+        z-index: 102;
+    }
+
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--bg-body);
+        z-index: 101;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transform: translateY(-100%);
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-menu.active {
+        transform: translateY(0);
+    }
+
+    .mobile-link {
+        font-size: 28px;
+        font-weight: 800;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--text-main);
+    }
+
+    .hero-section {
+        padding: 200px 60px 80px 60px;
+        min-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 6vw;
+        line-height: 1;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -0.04em;
+        margin: 0 0 50px 0;
+        color: var(--text-main);
+    }
+
+    .hero-title span {
+        color: transparent;
+        -webkit-text-stroke: 1px var(--text-main);
+        opacity: 0.4;
+    }
+
+    .filter-bar {
+        background: var(--bg-card);
+        padding: 8px 8px 8px 25px;
+        border-radius: var(--radius-pill);
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-lg);
+        width: 100%;
+        max-width: 800px;
+        height: 60px;
+    }
+
+    .filter-bar i {
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+        border: none;
+        background: transparent;
+        padding: 0;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text-main);
+        width: 100%;
+        outline: none;
+        height: 100%;
+    }
+
+    .filter-bar input::placeholder {
+        color: var(--text-muted);
+    }
+
+    .filter-bar select {
+        color: var(--text-main);
+        cursor: pointer;
+    }
+
+    select option {
+        background-color: var(--bg-card);
+        color: var(--text-main);
+    }
+
+    .divider {
+        width: 1px;
+        height: 24px;
+        background: var(--border-color);
+    }
+
+    .featured-section {
+        padding: 80px 60px;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 50px;
+    }
+
+    .section-title {
+        font-size: 40px;
+        font-weight: 800;
+        text-transform: uppercase;
+        line-height: 1;
+        color: var(--text-main);
+        margin: 0;
+    }
+
+    .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 40px;
+    }
+
+    .project-card {
+        background: var(--bg-card);
+        padding: 20px;
+        border-radius: var(--radius-card);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        cursor: pointer;
+        opacity: 0;
+    }
+
+    .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .card-img-container {
+        width: 100%;
+        height: 280px;
+        overflow: hidden;
+        border-radius: 16px;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .card-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .project-card:hover .card-img-container img {
+        transform: scale(1.1);
+    }
+
+    .project-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .project-info h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-main);
+        margin: 0 0 5px 0;
+    }
+
+    .project-info p {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin: 0;
+        font-weight: 500;
+    }
+
+    .project-price {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--accent-red);
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    .project-amenities {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 15px;
+    }
+
+    .project-amenities span {
+        background: var(--bg-input);
+        color: var(--text-muted);
+        padding: 4px 10px;
+        border-radius: 50px;
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+    .calculator-section {
+        padding: 60px 60px 100px 60px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .calc-card {
+        background: var(--bg-card);
+        padding: 60px;
+        border-radius: var(--radius-card);
+        width: 100%;
+        max-width: 700px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border-color);
+        opacity: 0;
+    }
+
+    .calc-card h2 {
+        text-align: center;
+        margin-bottom: 50px;
+        font-size: 32px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+    }
+
+    .input-group {
+        margin-bottom: 30px;
+    }
+
+    .input-group label {
+        display: block;
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: var(--text-muted);
+        letter-spacing: 1px;
+    }
+
+    .input-group input,
+    .input-group select {
+        width: 100%;
+        padding: 18px 24px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-input);
+        color: var(--text-main);
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s;
+    }
+
+    .input-group input:focus,
+    .input-group select:focus {
+        border-color: var(--text-main);
+        background: var(--bg-card);
+        box-shadow: 0 0 0 4px rgba(100, 100, 100, 0.1);
+    }
+
+    .results {
+        margin-top: 50px;
+        background: var(--bg-input);
+        padding: 40px;
+        border-radius: 20px;
+    }
+
+    .results p {
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+        margin: 15px 0;
+        color: var(--text-muted);
+    }
+
+    .results p strong {
+        color: var(--text-main);
+        font-weight: 600;
+    }
+
+    .results h3 {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 1px solid var(--border-color);
+        font-size: 24px;
+        color: var(--text-main);
+        font-weight: 800;
+    }
+
+    .footer {
+        background: #050505;
+        color: #888;
+        padding: 100px 60px;
+        border-top-left-radius: 60px;
+        border-top-right-radius: 60px;
+        text-align: center;
+        margin-top: 80px;
+    }
+
+    .footer a {
+        color: #888;
+        text-decoration: none;
+        margin: 0 20px;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 2px;
+        font-weight: 600;
+    }
+
+    .footer a:hover {
+        color: white;
+    }
+
+    .alert-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .alert-overlay.active {
+        opacity: 1;
+        display: flex;
+    }
+
+    .alert-box {
+        background: var(--bg-card);
+        padding: 40px;
+        border-radius: 24px;
+        width: 90%;
+        max-width: 450px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        border: 1px solid var(--border-color);
+        transform: scale(0.9);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .alert-overlay.active .alert-box {
+        transform: scale(1);
+    }
+
+    .alert-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--bg-input);
+        color: var(--accent-red);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 0 auto 20px auto;
+    }
+
+    .alert-box h3 {
+        margin: 0;
+        color: var(--text-main);
+        font-size: 22px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: -0.5px;
+    }
+
+    .alert-details {
+        margin: 20px 0;
+        text-align: left;
+        background: var(--bg-input);
+        padding: 15px;
+        border-radius: 16px;
+        max-height: 250px;
+        overflow-y: auto;
+    }
+
+    .found-item {
+        background: var(--bg-card);
+        padding: 12px;
+        border-radius: 10px;
+        margin-bottom: 8px;
+        border: 1px solid var(--border-color);
+    }
+
+    .found-item h4 {
+        margin: 0 0 4px 0;
+        font-size: 14px;
+        color: var(--text-main);
+    }
+
+    .found-item p {
+        margin: 0;
+        font-size: 11px;
+        color: var(--text-muted);
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .found-item span {
+        color: var(--accent-red);
+        font-weight: 700;
+    }
+
+    .alert-box button {
+        width: 100%;
+        padding: 15px;
+        border-radius: 50px;
+        border: none;
+        background: var(--accent-red);
+        color: white;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .alert-box button:hover {
+        background: var(--accent-hover);
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+        header {
+            padding: 20px 25px;
+        }
+
+        header.scrolled {
+            top: 0;
+            left: 0;
+            width: 100%;
+            border-radius: 0;
+            padding: 15px 25px;
+        }
+
+        .logo-area {
+            font-size: 18px;
+        }
+
+        .right-actions {
+            display: none;
+        }
+
+        .mobile-toggle {
+            display: block;
+        }
+
+        .hero-section {
+            padding: 160px 25px 60px 25px;
+        }
+
+        .hero-title {
+            font-size: 12vw;
+            margin-bottom: 40px;
+        }
+
+        .filter-bar {
+            flex-direction: column;
+            height: auto;
+            padding: 20px;
+            border-radius: 20px;
+            gap: 15px;
+        }
+
+        .divider {
+            display: none;
+        }
+
+        .filter-bar input,
+        .filter-bar select {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .filter-bar i {
+            display: none;
+        }
+
+        .btn-search {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .featured-section {
+            padding: 60px 25px;
+        }
+
+        .section-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 32px;
+        }
+
+        .project-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .calculator-section {
+            padding: 40px 25px 80px 25px;
+        }
+
+        .calc-card {
+            padding: 30px;
+        }
+
+        .calc-card h2 {
+            font-size: 24px;
+        }
+
+        .footer {
+            padding: 60px 25px;
+        }
+
+        .footer div {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+    </style>
+</head>
+    <body>
+        <div class="preloader">
+            <div class="loader-text">
+                <span>D</span><span>H</span><span>A</span><span>N</span><span>U</span><span>S</span><span>H</span>
+            </div>
+        </div>
+        <div class="cursor-dot"></div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="newhome.html" class="mobile-link" onclick="toggleMobileMenu()">Home</a>
+            <a href="properties.html" class="mobile-link" onclick="toggleMobileMenu()">Properties</a>
+            <a href="newcontactus.html" class="mobile-link" onclick="toggleMobileMenu()">Contact</a>
+            <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 20px; width: 80%; align-items: center;">
+                <select id="mobileCity" class="btn-pill" style="width: 100%; padding: 15px; border: 1px solid var(--text-main); background: transparent; color: var(--text-main); text-align: center;">
+            <option>All Cities</option>
+            <option value="bengaluru">Bengaluru</option>
+            <option value="hassan">Hassan</option>
+        </select>
+        <button onclick="toggleMobileMenu()" style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--text-main); background: transparent; color: var(--text-main); font-size: 20px;"><i class="fa-solid fa-times"></i></button>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo-area magnet-btn">
+            <img src="logo.png" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <span>Dhanush</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <button id="theme-toggle" class="btn-icon magnet-btn" style="width: 40px; height: 40px;"><i class="fa-solid fa-moon"></i></button>
+
+            <div class="right-actions">
+                <a href="newcontactus.html" class="btn-pill magnet-btn" style="background: transparent; color: var(--text-main); border: 1px solid var(--border-color);">Contact Us</a>
+            <select name="cities" id="cities" class="btn-pill" style="padding: 10px 20px; width: auto; border: 1px solid var(--border-color); background: transparent; cursor: pointer; color: var(--text-main);">
+                <option>All Cities</option>
+                <option value="bengaluru">Bengaluru</option>
+                <option value="hassan">Hassan</option>
+            </select>
+            </div>
+
+            <button class="mobile-toggle" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero-section">
+    <h1 class="hero-title">
+        Financial <br>
+        <span>Clarity</span>
+    </h1>
+
+    <div class="filter-bar">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Search Project, Location...">
+
+        <div class="divider"></div>
+
+        <select id="propertyFilter">
+            <option value="all">All Types</option>
+            <option value="villas">Villas</option>
+            <option value="apartment">Apartments</option>
+            <option value="penthouse">Penthouses</option>
+            <option value="duplex">Duplex</option>
+            <option value="fully serviced">Fully Serviced</option>
+            <option value="town house">Town House</option>
+        </select>
+
+        <button id="searchBtn" class="btn-pill btn-search magnet-btn">Search</button>
+    </div>
+    </section>
+
+<section class="featured-section" id="projects-section">
+    <div class="section-header">
+        <h2 class="section-title">Featured <br>Properties</h2>
+        <a href="properties.html" class="btn-icon magnet-btn" title="View All Properties">
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </div>
+
+    <div class="project-grid">
+        <div class="project-card" data-type="villas">
+            <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&fit=crop" alt="Villas">
+            </div>
+            <div class="project-info">
+                <div>
+                    <h3>Luxury Villas</h3>
+                    <p><i class="fa-solid fa-location-dot"></i> Bengaluru</p>
+                    <div class="project-amenities">
+                        <span>Pool</span><span>Gym</span><span>4 BHK</span>
+                    </div>
+                </div>
+                <div class="project-price">₹ 1.89 Cr</div>
+            </div>
+        </div>
+
+        <div class="project-card" data-type="duplex">
+            <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&fit=crop" alt="Duplex">
+            </div>
+            <div class="project-info">
+                <div>
+                    <h3>Modern Duplex</h3>
+                    <p><i class="fa-solid fa-location-dot"></i> Bengaluru</p>
+                    <div class="project-amenities">
+                        <span>3000 sq.ft</span><span>Parking</span>
+                    </div>
+                </div>
+                <div class="project-price">₹ 78 L</div>
+            </div>
+        </div>
+
+        <div class="project-card" data-type="fully serviced">
+            <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&fit=crop" alt="House">
+            </div>
+            <div class="project-info">
+                <div>
+                    <h3>Fully Serviced</h3>
+                    <p><i class="fa-solid fa-location-dot"></i> Hassan</p>
+                    <div class="project-amenities">
+                        <span>Furnished</span><span>Security</span>
+                    </div>
+                </div>
+                <div class="project-price">₹ 1.5 Cr</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="calculator-section">
+    <div id="root"></div>
+</section>
+
+<div class="alert-overlay" id="customAlert">
+    <div class="alert-box">
+        <div class="alert-icon">
+            <i class="fa-solid fa-house-chimney"></i>
+        </div>
+        <h3 id="alertTitle">Results Found</h3>
+        <div class="alert-details" id="alertContent">
+        </div>
+        <button onclick="closeAlert()">Done</button>
+    </div>
+</div>
+
+<footer class="footer">
+    <h2 style="color: white; font-size: 2rem; text-transform: uppercase; margin-bottom: 30px; letter-spacing: 2px;">Dhanush Properties</h2>
+    <div>
+        <a href="newhome.html">Home</a>
+        <a href="properties.html">Properties</a>
+        <a href="newcontactus.html">Contact</a>
+    </div>
+    <p style="font-size: 11px; margin-top: 40px; opacity: 0.5;">&copy; 2025 Dhanush Properties. All rights reserved.</p>
+</footer>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+<script type="text/babel">
+    const { useState, useEffect } = React;
+
+    function MortgageCalculator() {
+        const [homePrice, setHomePrice] = useState("");
+        const [downPayment, setDownPayment] = useState("");
+        const [interestRate, setInterestRate] = useState("");
+        const [loanTerm, setLoanTerm] = useState("30");
+        const [calculation, setCalculation] = useState({
+            principalInterest: 0,
+            propertyTax: 0,
+            insurance: 0,
+            pmi: 0,
+            total: 0,
+        });
+
+        useEffect(() => {
+            calculateMortgage();
+        }, [homePrice, downPayment, interestRate, loanTerm]);
+
+        const calculateMortgage = () => {
+            const price = parseFloat(homePrice) || 0;
+            const down = parseFloat(downPayment) || 0;
+            const rate = parseFloat(interestRate) / 100 / 12 || 0;
+            const term = parseInt(loanTerm) * 12 || 0;
+
+            const loanAmount = price - down;
+
+            const monthlyPayment = rate > 0
+                ? (loanAmount * rate * Math.pow(1 + rate, term)) / (Math.pow(1 + rate, term) - 1)
+                : loanAmount / term;
+
+            const propertyTax = (price * 0.01) / 12;
+            const insurance = (price * 0.003) / 12;
+            const pmi = down / price < 0.2 ? (loanAmount * 0.005) / 12 : 0;
+            const total = (monthlyPayment || 0) + propertyTax + insurance + pmi;
+
+            setCalculation({
+                principalInterest: monthlyPayment || 0,
+                propertyTax: propertyTax || 0,
+                insurance: insurance || 0,
+                pmi: pmi || 0,
+                total: total || 0,
+            });
+        };
+
+        return (
+            <div className="calc-card">
+                <h2>Mortgage Calculator</h2>
+                
+                <div className="input-group">
+                    <label>Home Price (₹)</label>
+                    <input type="number" value={homePrice} onChange={(e) => setHomePrice(e.target.value)} placeholder="0" />
+                </div>
+                
+                <div className="input-group">
+                    <label>Down Payment (₹)</label>
+                    <input type="number" value={downPayment} onChange={(e) => setDownPayment(e.target.value)} placeholder="0" />
+                </div>
+                
+                <div className="input-group">
+                    <label>Interest Rate (%)</label>
+                    <input type="number" step="0.1" value={interestRate} onChange={(e) => setInterestRate(e.target.value)} placeholder="0.0" />
+                </div>
+                
+                <div className="input-group">
+                    <label>Loan Term</label>
+                    <select value={loanTerm} onChange={(e) => setLoanTerm(e.target.value)}>
+                        <option value="15">15 Years</option>
+                        <option value="20">20 Years</option>
+                        <option value="30">30 Years</option>
+                    </select>
+                </div>
+
+                <div className="results">
+                    <p><strong>Principal & Interest</strong> <span>₹{calculation.principalInterest.toFixed(2)}</span></p>
+                    <p><strong>Property Tax</strong> <span>₹{calculation.propertyTax.toFixed(2)}</span></p>
+                    <p><strong>Home Insurance</strong> <span>₹{calculation.insurance.toFixed(2)}</span></p>
+                    <p><strong>PMI</strong> <span>₹{calculation.pmi.toFixed(2)}</span></p>
+                    <h3><strong>Monthly Payment</strong> <span>₹{calculation.total.toFixed(2)}</span></h3>
+                </div>
+            </div>
+        );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<MortgageCalculator />);
+</script>
+
+<script>
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smooth: true,
+        touchMultiplier: 2
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    const cursor = document.querySelector('.cursor-dot');
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (!isTouchDevice) {
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.1
+            });
+        });
+
+        const interactiveEls = document.querySelectorAll('a, button, input, select, .project-card');
+        interactiveEls.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+
+        const magnets = document.querySelectorAll('.magnet-btn');
+        magnets.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(btn, {
+                    x: x * 0.3,
+                    y: y * 0.3,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "elastic.out(1, 0.3)"
+                });
+            });
+        });
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const tl = gsap.timeline();
+    tl.to(".loader-text span", {
+            y: 0,
+            stagger: 0.05,
+            duration: 0.8,
+            ease: "power4.out"
+        })
+        .to(".loader-text span", {
+            y: "-100%",
+            stagger: 0.05,
+            duration: 0.5,
+            delay: 0.5
+        })
+        .to(".preloader", {
+            yPercent: -100,
+            duration: 0.8,
+            ease: "power2.inOut"
+        })
+        .from(".hero-title", {
+            y: 100,
+            opacity: 0,
+            duration: 1.5,
+            ease: "power3.out"
+        }, "-=0.5")
+        .from(".filter-bar", {
+            y: 50,
+            opacity: 0,
+            duration: 1
+        }, "-=1");
+
+    gsap.fromTo(".project-card", {
+        y: 50,
+        opacity: 0
+    }, {
+        scrollTrigger: {
+            trigger: ".featured-section",
+            start: "top 80%"
+        },
+        y: 0,
+        opacity: 1,
+        stagger: 0.2,
+        duration: 1,
+        ease: "power3.out"
+    });
+
+    setTimeout(() => {
+        gsap.fromTo(".calc-card", {
+            y: 100,
+            opacity: 0
+        }, {
+            scrollTrigger: {
+                trigger: ".calc-card",
+                start: "top 85%"
+            },
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out"
+        });
+    }, 500);
+
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+    });
+
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('active');
+    }
+
+    function showAlert(content, count) {
+        const container = document.getElementById("alertContent");
+        const title = document.getElementById("alertTitle");
+
+        if (count > 0) {
+            title.innerText = `${count} Properties Found`;
+            container.innerHTML = content;
+        } else {
+            title.innerText = "No Properties Found";
+            container.innerHTML = "<p style='text-align:center;'>We couldn't find any properties matching your criteria.</p>";
+        }
+
+        const overlay = document.getElementById("customAlert");
+        overlay.classList.add('active');
+        overlay.style.display = "flex";
+    }
+
+    function closeAlert() {
+        const overlay = document.getElementById("customAlert");
+        overlay.classList.remove('active');
+        setTimeout(() => {
+            overlay.style.display = "none";
+        }, 300);
+    }
+
+    document.getElementById("searchBtn").addEventListener("click", () => {
+        const searchTerm = document.getElementById("searchInput").value.toLowerCase().trim();
+        const filterType = document.getElementById("propertyFilter").value.toLowerCase();
+
+        let matchesHTML = "";
+        let count = 0;
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            const type = card.getAttribute('data-type').toLowerCase();
+            const title = card.querySelector('h3').innerText;
+            const loc = card.querySelector('p').innerText;
+            const price = card.querySelector('.project-price').innerText;
+
+            const matchText = title.toLowerCase().includes(searchTerm) || loc.toLowerCase().includes(searchTerm);
+            const matchType = filterType === 'all' || type === filterType;
+
+            if (matchText && matchType) {
+                count++;
+                matchesHTML += `
+                    <div class="found-item">
+                        <h4>${title}</h4>
+                        <p>${loc} <span>${price}</span></p>
+                    </div>
+                `;
+            }
+        });
+
+        showAlert(matchesHTML, count);
+    });
+
+    const themeBtn = document.getElementById('theme-toggle');
+    let isDarkMode = false;
+
+    themeBtn.addEventListener('click', () => {
+        isDarkMode = !isDarkMode;
+        if (isDarkMode) {
+            document.body.classList.add('dark');
+            themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+        } else {
+            document.body.classList.remove('dark');
+            themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+        }
+    });
+
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        themeBtn.click();
+    }
+</script>
+</body>
+</html>
